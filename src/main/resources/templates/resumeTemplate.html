@@ -144,13 +144,12 @@
     <div class="section">
         <h3>자기소개서</h3>
         <div class="info-box">
-            <div class="question">
-                <strong>1. 기업의 인재상과 본인의 성장 과정</strong>
-                <p th:text="${resume.coverLetter1}"></p><hr>
-            </div>
-            <div class="question">
-                <strong>2. 회사에 기여할 수 있는 점</strong>
-                <p th:text="${resume.coverLetter2}"></p><hr>
+            <div th:each="questionVo : ${resume.questionDatas}">
+                <div class="question">
+                    <strong th:text="${questionVo.question}"></strong>
+                    <p th:text="${questionVo.answer}"></p>
+                    <hr>
+                </div>
             </div>
         </div>
     </div>
