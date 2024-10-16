@@ -4,4 +4,5 @@ public enum AcademicType {
     BACHELOR,
     MASTER,
     DOCTER,
+    UNRECOGNIZED,
 }

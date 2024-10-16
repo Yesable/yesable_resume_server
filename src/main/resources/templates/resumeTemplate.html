@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume PDF</title>
+    <style>
+        @font-face {
+            font-family: 'S-CoreDream-3Light';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'S-CoreDream-3Light', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 1px solid #5151C6;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px; /* 동글한 모서리 */
+        }
+        .header {
+            background-color: #5151C6;
+            padding: 15px;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: left;
+            border-radius: 8px;
+        }
+        .profile {
+            display: flex;
+            padding: 20px 0;
+        }
+        .profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .profile-info {
+            line-height: 1.6;
+        }
+        .profile-info h2 {
+            font-size: 20px;
+            color: #5151C6;
+            margin-bottom: 5px;
+        }
+        .profile-info p {
+            margin: 4px 0;
+            color: #666;
+        }
+        .section {
+            margin-top: 20px;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #5151C6;
+            border-bottom: 2px solid #5151C6;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .info-box {
+            margin-bottom: 15px;
+        }
+        .info-box p {
+            margin: 5px 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        .info-box span {
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+        .info-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+        }
+        .info-list li span {
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">이력서</div>
+
+    <div class="profile">
+        <img src="profile-pic.png" alt="Profile Picture">
+        <div class="profile-info">
+            <h2 th:text="'이름 | ' + ${resume.name}"></h2>
+            <p>생년월일: <span th:text="${resume.birthDate}"></span></p>
+            <p>이메일: <span th:text="${resume.email}"></span></p>
+            <p>연락처: <span th:text="${resume.phone}"></span></p>
+            <p>주소: <span th:text="${resume.address}"></span></p>
+            <p>보훈여부: <span th:text="${resume.veteranStatus}"></span></p>
+            <p>병역여부: <span th:text="${resume.militaryStatus}"></span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>학력사항</h3>
+        <ul class="info-list">
+            <li th:each="edu : ${resume.educations}">
+                <span th:text="${edu.degree}"></span> - <span th:text="${edu.major}"></span> (<span th:text="${edu.school}"></span>)
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>경력사항</h3>
+        <ul class="info-list">
+            <li th:each="career : ${resume.careers}">
+                <span th:text="${career.position}"></span> / <span th:text="${career.period}"></span> - <span th:text="${career.details}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>자격증</h3>
+        <ul class="info-list">
+            <li th:each="cert : ${resume.certificates}">
+                <span th:text="${cert.name}"></span> - <span th:text="${cert.issuedBy}"></span> (<span th:text="${cert.date}"></span>)
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>자기소개서</h3>
+        <div class="info-box">
+            <div class="question">
+                <strong>1. 기업의 인재상과 본인의 성장 과정</strong>
+                <p th:text="${resume.coverLetter1}"></p><hr>
+            </div>
+            <div class="question">
+                <strong>2. 회사에 기여할 수 있는 점</strong>
+                <p th:text="${resume.coverLetter2}"></p><hr>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

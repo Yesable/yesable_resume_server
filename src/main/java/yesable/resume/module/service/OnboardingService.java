@@ -2,6 +2,7 @@ package yesable.resume.module.service;
 
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import yesable.resume.module.mapper.OnboardingMapper;
 import yesable.resume.module.model.Onboarding;
@@ -10,6 +11,7 @@ import yesable.resume.module.repository.OnboardingRepository;
 /**
  * 장애인 사용자 온보딩 처리
  */
+@Slf4j
 @GrpcService
 @RequiredArgsConstructor
 public class OnboardingService extends OnboardingServiceGrpc.OnboardingServiceImplBase {
@@ -24,7 +26,8 @@ public class OnboardingService extends OnboardingServiceGrpc.OnboardingServiceIm
     public void createOnboarding(OnboardingRequest onboardingRequest, StreamObserver<OnboardingResponse> responseObserver) {
 
         // 온보딩 데이터 Entity로 변환 후 저장
-        onboardingRepository.save(onboardingMapper.toEntity(onboardingRequest.getOnboarding()));
+        Onboarding onboarding = onboardingRepository.save(onboardingMapper.toEntity(onboardingRequest.getOnboarding()));
+        log.info(String.valueOf(onboarding));
 
         // response 값 생성
         OnboardingResponse response = OnboardingResponse.newBuilder()
@@ -42,8 +45,8 @@ public class OnboardingService extends OnboardingServiceGrpc.OnboardingServiceIm
     public void updateOnboarding(OnboardingRequest onboardingRequest, StreamObserver<OnboardingResponse> responseObserver) {
         // TODO: Exception 에러 처리
         // userId 로 온보딩 데이터 있는지 확인 후 없으면 에러 처리
-        Onboarding onboarding = onboardingRepository.findById(onboardingRequest.getOnboarding().getUserId())
-                .orElseThrow(() -> new RuntimeException());
+        onboardingRepository.findById(onboardingRequest.getOnboarding().getUserId())
+                .orElseThrow(RuntimeException::new);
 
         // 온보딩 데이터 Entity로 변환 후 저장
         onboardingRepository.save(onboardingMapper.toEntity(onboardingRequest.getOnboarding()));

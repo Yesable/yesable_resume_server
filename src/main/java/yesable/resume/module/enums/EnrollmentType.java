@@ -4,4 +4,5 @@ public enum EnrollmentType {
     ENROLL,
     ABSENCE,
     GRADUATE,
+    UNRECOGNIZED,
 }

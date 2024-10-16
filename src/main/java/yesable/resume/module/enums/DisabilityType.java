@@ -18,4 +18,5 @@ public enum DisabilityType {
     BRAIN_LESION,
     AUTISTIC,
     STOMA,
+    UNRECOGNIZED,
 }

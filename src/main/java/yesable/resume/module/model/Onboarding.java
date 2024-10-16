@@ -41,12 +41,12 @@ public class Onboarding {
     private boolean isTransit;
 
     // 학력사항
-    private List<AcademicVo> academicList;
+    private List<AcademicVo> academicDatas;
 
     // 경력사항
-    private List<EmploymentHistoryVo> employmentHistoryList;
+    private List<EmploymentHistoryVo> employmentHistoryDatas;
 
     // 자격증
-    private List<LicenseVo> licenseList;
+    private List<LicenseVo> licenseDatas;
 
 }

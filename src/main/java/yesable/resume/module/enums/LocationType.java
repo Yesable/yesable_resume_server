@@ -22,4 +22,5 @@ public enum LocationType {
     GYOENGNAM,
     GANGWON,
     JEJU,
+    UNRECOGNIZED,
 }
